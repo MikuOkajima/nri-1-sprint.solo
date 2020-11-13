@@ -16,19 +16,20 @@
  */
 
 export = {
-  type: "postgres",
-  host: process.env.DB_HOST || "localhost",
-  port: process.env.DB_PORT || 5432,
-  username: process.env.DB_USER || "postgres",
-  password: process.env.DB_PASSWORD || "postgres",
-  database: process.env.DB_NAME || "cc_solo",
-  entities: ["app/entities/**/*.ts"],
-  migrations: ["app/migrations/**/*.ts"],
-  seeds: ["app/seeds/**/*.ts"],
-  logging: false,
-  migrationsRun: false /* Disable auto-run migration */,
-  cli: {
-    entitiesDir: "app/entities",
-    migrationsDir: "app/migrations",
-  },
-};
+   type: "postgres",
+   host: process.env.DB_HOST || "localhost",
+   port: process.env.DB_PORT || 5432,
+   username: process.env.DB_USER || "postgres",
+   password: process.env.DB_PASSWORD || "postgres",
+   database: process.env.DB_NAME || "sprint_solo",
+   entities: ["src/entity/**/*.ts"],
+   migrations: ["src/migration/**/*.ts"],
+   seeds: ["src/seed/**/*.ts"],
+   logging: false,
+   migrationsRun: false /* Disable auto-run migration */,
+   cli: {
+     entitiesDir: "src/entity",
+     migrationsDir: "src/migration",
+   },
+ };
+ 

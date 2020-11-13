@@ -12,7 +12,7 @@ class DatabaseConnectionManager {
    */
   public static async connect() {
     const connection = await createConnection(
-      dbConfig as ConnectionOptions /* ⬅️ You can ignore the `as` operator for now */,
+      dbConfig as ConnectionOptions /* You can ignore the `as` operator for now */
     );
     // https://github.com/typeorm/typeorm/issues/3286
     // const driver = connection.driver;

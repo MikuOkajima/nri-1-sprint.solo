@@ -4,13 +4,14 @@
          "es5",
          "es6"
       ],
-      "target": "es2017",
+      "target": "es6",
       "module": "commonjs",
       "moduleResolution": "node",
       "outDir": "./build",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "sourceMap": true,
+      "baseUrl": "./src", 
       "esModuleInterop": true
    }
 }
