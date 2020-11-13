@@ -9,6 +9,7 @@ class App {
   public readonly app: Application;
   public readonly port: number;
 
+  public conn;
   protected postStartHook: () => void;
 
   constructor() {
@@ -46,7 +47,11 @@ class App {
       res.status(200).send({ message: "hello, world" });
     });
 
-    this.app.listen(this.port, this.postStartHook);
+    this.conn = this.app.listen(this.port, this.postStartHook);
+  }
+
+  public stop(): void {
+    this.conn.close();
   }
 }
 
