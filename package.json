@@ -1,38 +1,34 @@
 {
   "name": "nri-1-sprint.solo",
-  "version": "1.0.0",
-  "description": "CC Solo Project",
-  "main": "index.js",
-  "repository": "https://github.com/MikuOkajima/nri-1-sprint.solo.git",
-  "author": "Miku Okajima <okajima.miku@gmail.com>",
-  "license": "UNLICENSED",
-  "private": false,
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "start": "node ./src/index.js",
-    "dev": "nodemon ./src/index.js",
-    "lint": "eslint --fix --ext .js .",
-    "test": "mocha test && yarn lint"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
+    "dev": "node --inspect -r ts-node/register -r dotenv/config src/index.ts",
+    "start": "ts-node -r dotenv/config dist/index.js",
+    "testConnection": "ts-node -r dotenv/config src/scripts/testConnection.ts",
+    "build": "tsc -p .",
+    "lint": "eslint ./src/**/*.ts --fix",
+    "test": "mocha --inspect -r ts-node/register -r dotenv/config src/tests/index.ts",
+    "orm": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
+    "makeMigrations": "yarn orm migration:generate",
+    "migrate": "yarn orm migration:run",
+    "rollback": "echo 'FIXME!'",
+    "seeder": "ts-node -r dotenv/config ./node_modules/typeorm-seeding/dist/cli.js",
+    "seed": "yarn seeder --configName src/ormconfig.ts seed",
+    "pre-commit": "yarn lint"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "underscore": "^1.9.1"
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "eslint": "^6.1.0",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-config-problems": "^3.0.1",
-    "eslint-plugin-prettier": "^3.1.0",
-    "husky": "^3.0.1",
-    "mocha": "^6.2.0",
-    "nodemon": "^1.19.1",
-    "prettier": "^1.18.2",
-    "pretty-quick": "^1.11.1"
+    "@types/cookie-parser": "^1.4.2",
+    "@types/express": "^4.17.9",
+    "@types/http-errors": "^1.8.0",
+    "@types/morgan": "^1.9.2"
   }
 }
