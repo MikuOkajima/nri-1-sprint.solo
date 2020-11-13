@@ -8,7 +8,7 @@
       "orm": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js --config ormconfig.ts",
       "makeMigrations": "yarn orm migration:generate",
       "migrate": "yarn orm migration:run",
-      "lint": "eslint ./src/**/*.ts --fix",
+      "lint": "eslint ./src/**/*.ts ./**.ts --fix",
       "test": "mocha --inspect -r ts-node/register -r dotenv/config src/test/index.ts && yarn lint"
    },
    "dependencies": {
