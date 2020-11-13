@@ -1,38 +1,16 @@
 {
   "name": "nri-1-sprint.solo",
-  "version": "1.0.0",
-  "description": "CC Solo Project",
-  "main": "index.js",
-  "repository": "https://github.com/MikuOkajima/nri-1-sprint.solo.git",
-  "author": "Miku Okajima <okajima.miku@gmail.com>",
-  "license": "UNLICENSED",
-  "private": false,
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "start": "node ./src/index.js",
-    "dev": "nodemon ./src/index.js",
-    "lint": "eslint --fix --ext .js .",
-    "test": "mocha test && yarn lint"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
+    "start": "node ./bin/www"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "underscore": "^1.9.1"
-  },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "eslint": "^6.1.0",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-config-problems": "^3.0.1",
-    "eslint-plugin-prettier": "^3.1.0",
-    "husky": "^3.0.1",
-    "mocha": "^6.2.0",
-    "nodemon": "^1.19.1",
-    "prettier": "^1.18.2",
-    "pretty-quick": "^1.11.1"
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1"
   }
 }
