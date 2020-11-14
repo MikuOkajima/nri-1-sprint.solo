@@ -7,7 +7,7 @@
 - [] Transaction
  - [x] Entity
  - [x] POST
- - [] GET
+ - [x] GET
  - [] DELETE
  - [] PATCH
 - [] Calculation

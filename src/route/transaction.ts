@@ -5,10 +5,11 @@ import TrxManager from "../service/transaction";
 
 const router = express.Router();
 
-// router.get("/", async (req, res) => {
-//   const users = await UserManager.findAllUser();
-//   res.send(users);
-// });
+router.get("/", async (req, res) => {
+  const trxs = await TrxManager.findAllTrx();
+  res.send(trxs);
+});
+
 router.post("/", async (req, res) => {
   const newTrx = req.body;
   try {
@@ -18,7 +19,7 @@ router.post("/", async (req, res) => {
     const payeeUsers: User[] = await UserManager.findUsersByNames(payeeNames);
     newTrx.payer = payerUser;
     newTrx.payee = payeeUsers;
-    const trx = await TrxManager.saveTransaction(newTrx);
+    const trx = await TrxManager.saveTrx(newTrx);
     res.status(201).send(trx);
   } catch (err) {
     res.status(422).send(err);

@@ -5,7 +5,9 @@ import {
   JoinColumn,
   ManyToOne,
   CreateDateColumn,
+  OneToMany,
 } from "typeorm";
+import TrxPayee from "./TrxPayee";
 import { User } from "./User";
 
 @Entity({ name: "trx_payer" })
@@ -23,11 +25,12 @@ export class TrxPayer {
   @Column()
   purpose: string;
 
-  //   @CreateDateColumn({ name: 'creation_date', type: 'timestamp', precision: 0 })
-  //   readonly creationDate: Date;
-
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   date: Date;
+
+  @OneToMany((type) => TrxPayee, (trxPayee) => trxPayee.trxPayer)
+  @JoinColumn()
+  trxPayees: TrxPayee[];
 }
 
 export default TrxPayer;
