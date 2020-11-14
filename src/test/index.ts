@@ -8,9 +8,9 @@ chai.use(chaiHttp);
 
 const expect = chai.expect;
 const server: App = getDefaultApp();
+let app: Application;
 
-describe("expense manager", () => {
-  let app: Application;
+describe("Split Bill", () => {
   before(async () => {
     server.start();
     app = server.app;

@@ -1,0 +1,14 @@
+- [] User
+ - [x] Entity
+ - [] Seed
+ - [] GET
+ - [] POST
+ - [] DELETE
+- [] Transaction
+ - [] Entity
+ - [] POST
+ - [] GET
+ - [] DELETE
+ - [] PATCH
+- [] Calculation
+ - [] GET

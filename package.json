@@ -4,10 +4,12 @@
    "author": "MikuOkajima <mikuokajima@users.noreply.github.com>",
    "scripts": {
       "start": "ts-node -r dotenv/config src/index.ts",
-      "debug": "nodemon",
+      "dev": "nodemon",
       "orm": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js --config ormconfig.ts",
       "makeMigrations": "yarn orm migration:generate",
       "migrate": "yarn orm migration:run",
+      "seeder": "ts-node -r dotenv/config ./node_modules/typeorm-seeding/dist/cli.js",
+      "seed": "yarn seeder --configName src/ormconfig.ts seed",  
       "lint": "eslint ./src/**/*.ts ./**.ts --fix",
       "test": "mocha --inspect -r ts-node/register -r dotenv/config src/test/index.ts && yarn lint"
    },
@@ -33,6 +35,7 @@
       "mocha": "^8.2.1",
       "nodemon": "^2.0.6",
       "ts-node": "3.3.0",
+      "typeorm-seeding": "^1.6.1",
       "typescript": "3.3.3333"
    }
 }

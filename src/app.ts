@@ -25,13 +25,15 @@ class App {
     this.app.use(bodyParser.json());
 
     this.app.get("/helloWorld", (req, res) => {
+      res.status(200).send({ message: "hello, world" });
+    });
+
+    this.app.post("/users", (req, res) => {
       DatabaseConnectionManager.connect()
         .then(async (connection) => {
           console.log("Inserting a new user into the database...");
           const user = new User();
-          user.firstName = "Timber";
-          user.lastName = "Saw";
-          user.age = 25;
+          user.name = "Timber";
           await connection.manager.save(user);
           console.log("Saved a new user with id: " + user.id);
 
@@ -42,6 +44,7 @@ class App {
           console.log(
             "Here you can setup and run express/koa/any other framework."
           );
+          connection.close();
         })
         .catch((error) => console.log(error));
       res.status(200).send({ message: "hello, world" });
