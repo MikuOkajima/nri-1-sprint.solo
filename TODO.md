@@ -2,7 +2,7 @@
  - [x] Entity
  - [x] Seed
  - [x] GET
- - [] POST
+ - [x] POST
  - [] DELETE
 - [] Transaction
  - [] Entity

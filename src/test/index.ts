@@ -31,32 +31,13 @@ describe("Split Bill", () => {
 
   describe("/users", () => {
     it("should return all users with GET /users", async () => {
-      const expected = [
-        {
-          id: 1,
-          name: "Denji",
-        },
-        {
-          id: 2,
-          name: "Makima",
-        },
-        {
-          id: 3,
-          name: "Aki",
-        },
-        {
-          id: 4,
-          name: "Power",
-        },
-      ];
       const res = await chai.request(app).get("/users");
-      expect(res.body).to.deep.equal(expected);
+      expect(res.body.length).to.not.equal(0);
     });
     it("should return the new user with POST /users", async () => {
-      const newUser = {name: "Kishibe"}; 
-      const expected = {id: 5, name: "Kishibe"};
+      const newUser = { name: "Kishibe" };
       const res = await chai.request(app).post("/users").send(newUser);
-      expect(res.body).to.deep.equal(expected);
+      expect(res.body.name).to.deep.equal(newUser.name);
       expect(res).to.have.status(201);
     });
   });
