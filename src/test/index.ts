@@ -52,5 +52,12 @@ describe("Split Bill", () => {
       const res = await chai.request(app).get("/users");
       expect(res.body).to.deep.equal(expected);
     });
+    it("should return the new user with POST /users", async () => {
+      const newUser = {name: "Kishibe"}; 
+      const expected = {id: 5, name: "Kishibe"};
+      const res = await chai.request(app).post("/users").send(newUser);
+      expect(res.body).to.deep.equal(expected);
+      expect(res).to.have.status(201);
+    });
   });
 });

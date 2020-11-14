@@ -1,7 +1,7 @@
 - [] User
  - [x] Entity
  - [x] Seed
- - [] GET
+ - [x] GET
  - [] POST
  - [] DELETE
 - [] Transaction
