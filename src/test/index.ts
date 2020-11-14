@@ -40,5 +40,12 @@ describe("Split Bill", () => {
       expect(res.body.name).to.deep.equal(newUser.name);
       expect(res).to.have.status(201);
     });
+    it("should delete new user with DELETE /users:name", async () => {
+      const res = await chai.request(app).delete("/users/Kishibe");
+      const res2 = await chai.request(app).get("/users");
+      const deletedUser = res2.body.filter((e) => e.name === "Kishibe");
+      expect(deletedUser.length).to.equal(0);
+      expect(res).to.have.status(200);
+    });
   });
 });

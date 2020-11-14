@@ -12,5 +12,10 @@ router.post("/", async (req, res) => {
   const user = await UserManager.saveUser(newUser);
   res.status(201).send(user);
 });
+router.delete("/:name", async (req, res) => {
+  const name = req.params.name;
+  await UserManager.deleteUser(name);
+  res.status(200).end();
+});
 
 export default router;

@@ -38,6 +38,25 @@ class UserManager {
     }
     return user;
   }
+  /**
+   * Delete user by name
+   */
+  public static async deleteUser(name: string) {
+    let conn;
+    try {
+      const userName: Partial<User> = {};
+      userName.name = name;
+      conn = await DatabaseConnectionManager.connect();
+      const userRepository = getRepository(User);
+      const user: User = await userRepository.findOne(userName);
+      await userRepository.remove(user);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      conn.close();
+    }
+    return;
+  }
 }
 
 export default UserManager;
