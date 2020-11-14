@@ -2,6 +2,7 @@ import express, { Application } from "express";
 import bodyParser from "body-parser";
 import DatabaseConnectionManager from "./database";
 import User from "./entity/User";
+import userRouter from "./route/user";
 
 class App {
   public static readonly DEFAULT_PORT: number = 3000;
@@ -28,27 +29,28 @@ class App {
       res.status(200).send({ message: "hello, world" });
     });
 
-    this.app.post("/users", (req, res) => {
-      DatabaseConnectionManager.connect()
-        .then(async (connection) => {
-          console.log("Inserting a new user into the database...");
-          const user = new User();
-          user.name = "Timber";
-          await connection.manager.save(user);
-          console.log("Saved a new user with id: " + user.id);
+    this.app.use("/users", userRouter);
+    //  (req, res) => {
+    //   DatabaseConnectionManager.connect()
+    //     .then(async (connection) => {
+    //       console.log("Inserting a new user into the database...");
+    //       const user = new User();
+    //       user.name = "Timber";
+    //       await connection.manager.save(user);
+    //       console.log("Saved a new user with id: " + user.id);
 
-          console.log("Loading users from the database...");
-          const users = await connection.manager.find(User);
-          console.log("Loaded users: ", users);
+    //       console.log("Loading users from the database...");
+    //       const users = await connection.manager.find(User);
+    //       console.log("Loaded users: ", users);
 
-          console.log(
-            "Here you can setup and run express/koa/any other framework."
-          );
-          connection.close();
-        })
-        .catch((error) => console.log(error));
-      res.status(200).send({ message: "hello, world" });
-    });
+    //       console.log(
+    //         "Here you can setup and run express/koa/any other framework."
+    //       );
+    //       connection.close();
+    //     })
+    //     .catch((error) => console.log(error));
+    //   res.status(200).send({ message: "hello, world" });
+    // });
 
     this.conn = this.app.listen(this.port, this.postStartHook);
   }

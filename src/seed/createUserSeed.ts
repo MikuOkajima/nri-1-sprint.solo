@@ -4,7 +4,7 @@ import { Factory, Seeder } from "typeorm-seeding";
 import UserSeed from "./users.json";
 
 export default class CreateUsers implements Seeder {
-  public async run(factory: Factory, connection: Connection): Promise<any> {
+  public async run(factory: Factory, connection: Connection) {
     await connection
       .createQueryBuilder()
       .insert()

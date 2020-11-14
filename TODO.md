@@ -1,6 +1,6 @@
 - [] User
  - [x] Entity
- - [] Seed
+ - [x] Seed
  - [] GET
  - [] POST
  - [] DELETE
