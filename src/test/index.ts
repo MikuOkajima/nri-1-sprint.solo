@@ -60,5 +60,11 @@ describe("Split Bill", () => {
       const res = await chai.request(app).post("/transactions").send(newTrx);
       expect(res).to.have.status(201);
     });
+    it("should return all transactions with GET /transactions", async () => {
+      const res = await chai.request(app).get("/transactions");
+      expect(res.body).to.not.be.empty;
+      expect(res.body.length).to.not.equal(0);
+      expect(res.body[0].id).to.not.undefined;
+    });
   });
 });
