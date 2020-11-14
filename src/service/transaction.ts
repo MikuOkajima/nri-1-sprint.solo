@@ -28,7 +28,6 @@ class UserManager {
         delete newTrx["trxPayees"];
         return newTrx;
       });
-      console.log(allTrxs);
     } catch (err) {
       console.log(err);
       throw err;
@@ -36,6 +35,24 @@ class UserManager {
       await conn.close();
     }
     return allTrxs;
+  }
+  /**
+   * Get ther transaction by Id
+   */
+  public static async findTrxById(id: string): Promise<TrxPayer> {
+    let conn;
+    let trx;
+    try {
+      conn = await DatabaseConnectionManager.connect();
+      const trxPayerRepository = getRepository(TrxPayer);
+      trx = await trxPayerRepository.findOne({ id: Number(id) });
+    } catch (err) {
+      console.log(err);
+      throw err;
+    } finally {
+      await conn.close();
+    }
+    return trx;
   }
   /**
    * Save new transactions
@@ -77,12 +94,12 @@ class UserManager {
   /**
    * Delete user by name
    */
-  public static async deleteUser(user: User) {
+  public static async deleteTrx(trxPayer: TrxPayer) {
     let conn;
     try {
       conn = await DatabaseConnectionManager.connect();
-      const userRepository = getRepository(User);
-      await userRepository.remove(user);
+      const trxPayerRepository = getRepository(TrxPayer);
+      await trxPayerRepository.remove(trxPayer);
     } catch (err) {
       console.log(err);
       throw err;

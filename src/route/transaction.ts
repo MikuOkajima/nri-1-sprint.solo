@@ -2,6 +2,7 @@ import { User } from "entity/User";
 import express from "express";
 import UserManager from "../service/user";
 import TrxManager from "../service/transaction";
+import TrxPayer from "entity/TrxPayer";
 
 const router = express.Router();
 
@@ -25,19 +26,19 @@ router.post("/", async (req, res) => {
     res.status(422).send(err);
   }
 });
-// router.delete("/:name", async (req, res) => {
-//   const name = req.params.name;
-//   const user: User = await UserManager.findUserByName(name);
-//   if (user === undefined) {
-//     res.status(404).end();
-//   } else {
-//     try {
-//       await UserManager.deleteUser(user);
-//     } catch (err) {
-//       res.status(409).send(err);
-//     }
-//     res.status(200).end();
-//   }
-// });
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  const trxPayer: TrxPayer = await TrxManager.findTrxById(id);
+  if (trxPayer === undefined) {
+    res.status(404).end();
+  } else {
+    try {
+      await TrxManager.deleteTrx(trxPayer);
+    } catch (err) {
+      res.status(409).send(err);
+    }
+    res.status(200).end();
+  }
+});
 
 export default router;

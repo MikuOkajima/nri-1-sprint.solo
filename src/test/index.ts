@@ -50,6 +50,7 @@ describe("Split Bill", () => {
   });
 
   describe("/transactions", () => {
+    let newTrxId;
     it("should enter new transaction with POST /transactions", async () => {
       const newTrx = {
         payer: "Makima",
@@ -58,6 +59,7 @@ describe("Split Bill", () => {
         payee: ["Denji", "Aki", "Makima"],
       };
       const res = await chai.request(app).post("/transactions").send(newTrx);
+      newTrxId = res.body.id;
       expect(res).to.have.status(201);
     });
     it("should return all transactions with GET /transactions", async () => {
@@ -65,6 +67,12 @@ describe("Split Bill", () => {
       expect(res.body).to.not.be.empty;
       expect(res.body.length).to.not.equal(0);
       expect(res.body[0].id).to.not.undefined;
+    });
+    it("should delete the transaction with DELETE /transactions", async () => {
+      const res = await chai
+        .request(app)
+        .delete("/transactions/" + String(newTrxId));
+      expect(res).to.have.status(200);
     });
   });
 });
