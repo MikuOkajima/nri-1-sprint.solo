@@ -1,11 +1,11 @@
-- [] User
+- [x] User
  - [x] Entity
  - [x] Seed
  - [x] GET
  - [x] POST
  - [x] DELETE
 - [] Transaction
- - [] Entity
+ - [x] Entity
  - [] POST
  - [] GET
  - [] DELETE

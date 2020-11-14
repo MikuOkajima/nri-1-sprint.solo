@@ -6,7 +6,7 @@ class UserManager {
   /**
    * Get all users
    */
-  public static async getAllUser(): Promise<User[]> {
+  public static async findAllUser(): Promise<User[]> {
     let conn;
     let users = [];
     try {
@@ -15,10 +15,31 @@ class UserManager {
       users = await userRepository.find();
     } catch (err) {
       console.log(err);
+      throw err;
     } finally {
-      conn.close();
+      await conn.close();
     }
     return users;
+  }
+  /**
+   * Get ther user by name
+   */
+  public static async findUserByName(name: string): Promise<User> {
+    let conn;
+    let user: User;
+    try {
+      const userName: Partial<User> = {};
+      userName.name = name;
+      conn = await DatabaseConnectionManager.connect();
+      const userRepository = getRepository(User);
+      user = await userRepository.findOne(userName);
+    } catch (err) {
+      console.log(err);
+      throw err;
+    } finally {
+      await conn.close();
+    }
+    return user;
   }
   /**
    * Save new user
@@ -33,27 +54,26 @@ class UserManager {
       user = await userRepository.findOne(newUser);
     } catch (err) {
       console.log(err);
+      throw err;
     } finally {
-      conn.close();
+      await conn.close();
     }
     return user;
   }
   /**
    * Delete user by name
    */
-  public static async deleteUser(name: string) {
+  public static async deleteUser(user: User) {
     let conn;
     try {
-      const userName: Partial<User> = {};
-      userName.name = name;
       conn = await DatabaseConnectionManager.connect();
       const userRepository = getRepository(User);
-      const user: User = await userRepository.findOne(userName);
       await userRepository.remove(user);
     } catch (err) {
       console.log(err);
+      throw err;
     } finally {
-      conn.close();
+      await conn.close();
     }
     return;
   }

@@ -48,4 +48,16 @@ describe("Split Bill", () => {
       expect(res).to.have.status(200);
     });
   });
+  describe("/transactions", () => {
+    it("should enter new transaction with POST /transactions", async () => {
+      const newTrx = {
+        payer: "Makima",
+        amount: 3500,
+        purpose: "test",
+        payee: ["Denji", "Aki", "Makima"]
+      }
+      const res = await chai.request(app).post("/transactions").send(newTrx);
+      expect(res).to.have.status(201);
+    });
+  });
 });
