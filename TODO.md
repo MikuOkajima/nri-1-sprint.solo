@@ -6,7 +6,7 @@
  - [x] DELETE
 - [] Transaction
  - [x] Entity
- - [] POST
+ - [x] POST
  - [] GET
  - [] DELETE
  - [] PATCH

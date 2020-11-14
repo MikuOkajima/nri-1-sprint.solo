@@ -22,7 +22,7 @@ class UserManager {
     return users;
   }
   /**
-   * Get ther user by name
+   * Get the user by name
    */
   public static async findUserByName(name: string): Promise<User> {
     let conn;
@@ -40,6 +40,29 @@ class UserManager {
       await conn.close();
     }
     return user;
+  }
+  /**
+   * Get the users by names
+   */
+  public static async findUsersByNames(names: string[]): Promise<User[]> {
+    let conn;
+    const users: User[] = [];
+    try {
+      conn = await DatabaseConnectionManager.connect();
+      const userRepository = getRepository(User);
+      for (const name of names) {
+        const userName: Partial<User> = {};
+        userName.name = name;
+        const user = await userRepository.findOne(userName);
+        users.push(user);
+      }
+    } catch (err) {
+      console.log(err);
+      throw err;
+    } finally {
+      await conn.close();
+    }
+    return users;
   }
   /**
    * Save new user

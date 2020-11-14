@@ -1,6 +1,7 @@
 import { User } from "entity/User";
 import express from "express";
 import UserManager from "../service/user";
+import TrxManager from "../service/transaction";
 
 const router = express.Router();
 
@@ -9,10 +10,16 @@ const router = express.Router();
 //   res.send(users);
 // });
 router.post("/", async (req, res) => {
-  const newUser = req.body;
+  const newTrx = req.body;
   try {
-    const user = await UserManager.saveUser(newUser);
-    res.status(201).send(user);
+    const payerName = newTrx.payer;
+    const payerUser: User = await UserManager.findUserByName(payerName);
+    const payeeNames = newTrx.payee;
+    const payeeUsers: User[] = await UserManager.findUsersByNames(payeeNames);
+    newTrx.payer = payerUser;
+    newTrx.payee = payeeUsers;
+    const trx = await TrxManager.saveTransaction(newTrx);
+    res.status(201).send(trx);
   } catch (err) {
     res.status(422).send(err);
   }
