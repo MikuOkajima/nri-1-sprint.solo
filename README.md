@@ -1,6 +1,27 @@
 # Split Bill API
 このリポジトリはCode Chrysalisの生徒であるときに作成しました（This was created during my time as a student at Code Chrysalis）
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Overview](#overview)
+- [API endpoints](#api-endpoints)
+  - [/users](#users)
+    - [GET /users](#get-users)
+    - [POST /users](#post-users)
+    - [DELETE /users/:userName](#delete-usersusername)
+  - [/transactions](#transactions)
+    - [GET /transactions](#get-transactions)
+    - [GET /transactions/:transactionId](#get-transactionstransactionid)
+    - [POST /transactions](#post-transactions)
+    - [PATCH /transactions/:transactionId](#patch-transactionstransactionid)
+    - [DELETE /transactions/:transactionId](#delete-transactionstransactionid)
+  - [/balance](#balance)
+    - [GET /balancec](#get-balancec)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Overview
 
 - 割り勘計算用API。ユーザと明細を登録して、各ユーザの支払い金額を計算する。
