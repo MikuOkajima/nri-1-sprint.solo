@@ -20,8 +20,7 @@
 ```json
 [
   {"id": 1, "name": "Akira"},
-  {"id": 2, "name": "Kaneda"},
-  ...
+  {"id": 2, "name": "Kaneda"}
 ]
 ```
 
@@ -70,8 +69,7 @@
       "Kei",
       "Kaneda"
     ]
-  },
-  ...
+  }
 ]
 ```
 
@@ -185,7 +183,6 @@
     "balance": -3648,
     "debit": 3648,
     "credit": 0
-  }, 
-  ...
+  }
 ]
 ```
