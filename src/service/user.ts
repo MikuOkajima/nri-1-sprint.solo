@@ -54,6 +54,7 @@ class UserManager {
         const userName: Partial<User> = {};
         userName.name = name;
         const user = await userRepository.findOne(userName);
+        if (user === undefined) throw "payees is invalid";
         users.push(user);
       }
     } catch (err) {

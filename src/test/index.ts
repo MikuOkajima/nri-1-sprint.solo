@@ -35,15 +35,15 @@ describe("Split Bill", () => {
       expect(res.body.length).to.not.equal(0);
     });
     it("should return the new user with POST /users", async () => {
-      const newUser = { name: "Kishibe" };
+      const newUser = { name: "Yamagata" };
       const res = await chai.request(app).post("/users").send(newUser);
       expect(res.body.name).to.deep.equal(newUser.name);
       expect(res).to.have.status(201);
     });
     it("should delete new user with DELETE /users:name", async () => {
-      const res = await chai.request(app).delete("/users/Kishibe");
+      const res = await chai.request(app).delete("/users/Yamagata");
       const res2 = await chai.request(app).get("/users");
-      const deletedUser = res2.body.filter((e) => e.name === "Kishibe");
+      const deletedUser = res2.body.filter((e) => e.name === "Yamagata");
       expect(deletedUser.length).to.equal(0);
       expect(res).to.have.status(200);
     });
@@ -53,10 +53,10 @@ describe("Split Bill", () => {
     let newTrxId;
     it("should enter new transaction with POST /transactions", async () => {
       const newTrx = {
-        payer: "Makima",
+        payer: "Kaneda",
         amount: 3500,
         purpose: "test",
-        payees: ["Denji", "Aki", "Makima"],
+        payees: ["Akira", "Tetsuo", "Kaneda"],
       };
       const res = await chai.request(app).post("/transactions").send(newTrx);
       newTrxId = res.body.id;
@@ -72,10 +72,10 @@ describe("Split Bill", () => {
       const res = await chai.request(app).get("/transactions/" + newTrxId);
       const expected = {
         id: Number(newTrxId),
-        payer: "Makima",
+        payer: "Kaneda",
         amount: 3500,
         purpose: "test",
-        payees: ["Denji", "Aki", "Makima"],
+        payees: ["Akira", "Tetsuo", "Kaneda"],
       };
       const actual = res.body;
       delete actual.date;
@@ -83,17 +83,17 @@ describe("Split Bill", () => {
     });
     it("should update the transaction with PATCH /transactions", async () => {
       const update = {
-        payer: "Denji",
+        payer: "Akira",
         amount: 2200,
         purpose: "test update",
-        payees: ["Power", "Aki", "Makima"],
+        payees: ["Kei", "Tetsuo", "Kaneda"],
       };
       const expected = {
         id: Number(newTrxId),
-        payer: "Denji",
+        payer: "Akira",
         amount: 2200,
         purpose: "test update",
-        payees: ["Power", "Aki", "Makima"],
+        payees: ["Kei", "Tetsuo", "Kaneda"],
       };
       const res = await chai
         .request(app)

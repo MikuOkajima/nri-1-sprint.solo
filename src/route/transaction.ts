@@ -28,6 +28,7 @@ router.post("/", async (req, res) => {
   try {
     const payerName = newTrx.payer;
     const payerUser: User = await UserManager.getUserByName(payerName);
+    if (payerUser === undefined) throw "payer is invalid";
     const payeeNames = newTrx.payees;
     const payeeUsers: User[] = await UserManager.getUsersByNames(payeeNames);
     newTrx.payer = payerUser;
