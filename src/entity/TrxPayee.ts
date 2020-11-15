@@ -7,7 +7,7 @@ export class TrxPayee {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne((type) => TrxPayer, { onDelete: "CASCADE" })
+  @ManyToOne((type) => TrxPayer, { onDelete: "CASCADE", nullable: false })
   @JoinColumn()
   trxPayer: TrxPayer;
 

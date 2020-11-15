@@ -15,7 +15,7 @@ export class TrxPayer {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne((type) => User, {})
+  @ManyToOne((type) => User, { nullable: false })
   @JoinColumn()
   payer: User;
 

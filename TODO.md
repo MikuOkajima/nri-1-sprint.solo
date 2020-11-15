@@ -11,5 +11,5 @@
  - [x] GET by id
  - [x] DELETE
  - [x] PATCH
-- [] Calculation
+- [] Balance
  - [] GET
