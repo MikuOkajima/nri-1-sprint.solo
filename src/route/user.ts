@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
     const user = await UserManager.saveUser(newUser);
     res.status(201).send(user);
   } catch (err) {
-    res.status(422).send(err);
+    res.status(422).send({ error: err });
   }
 });
 router.delete("/:name", async (req, res) => {
@@ -26,7 +26,7 @@ router.delete("/:name", async (req, res) => {
     try {
       await UserManager.deleteUser(user);
     } catch (err) {
-      res.status(409).send(err);
+      res.status(409).send({ error: err });
     }
     res.status(200).end();
   }

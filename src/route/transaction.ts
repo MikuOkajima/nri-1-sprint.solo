@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
     const formattedTrx = TrxManager.format(trx);
     res.status(201).send(formattedTrx);
   } catch (err) {
-    res.status(422).send(err);
+    res.status(422).send({ error: err });
   }
 });
 router.delete("/:id", async (req, res) => {
@@ -49,7 +49,7 @@ router.delete("/:id", async (req, res) => {
     try {
       await TrxManager.deleteTrx(trxPayer);
     } catch (err) {
-      res.status(409).send(err);
+      res.status(409).send({ error: err });
     }
     res.status(200).end();
   }
@@ -72,9 +72,7 @@ router.patch("/:id", async (req, res) => {
       const formattedTrxPayer = TrxManager.format(updatedTrxPayer);
       res.send(formattedTrxPayer);
     } catch (err) {
-      console.log("err");
-      console.log(err);
-      res.status(409).send(err);
+      res.status(409).send({ error: err });
     }
   }
 });
