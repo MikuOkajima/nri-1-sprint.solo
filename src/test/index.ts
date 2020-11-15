@@ -149,55 +149,68 @@ describe("Split Bill", () => {
       const user1 = "testuser1";
       const user2 = "testuser2";
       const user3 = "testuser3";
-      await chai.request(app).post("/users").send({name: user1});
-      await chai.request(app).post("/users").send({name: user2});
-      await chai.request(app).post("/users").send({name: user3});
+      await chai.request(app).post("/users").send({ name: user1 });
+      await chai.request(app).post("/users").send({ name: user2 });
+      await chai.request(app).post("/users").send({ name: user3 });
       const transaction1 = {
         payer: user1,
-        amount: 2000,
+        amount: 3000,
         purpose: "transaction1",
-        payees: [user1, user3],
+        payees: [user1, user2, user3],
       };
       const transaction2 = {
         payer: user2,
-        amount: 3000,
+        amount: 5000,
         purpose: "transaction2",
         payees: [user1, user3],
       };
-      const trxRes1 = await chai.request(app).post("/transactions").send(transaction1);
+      const trxRes1 = await chai
+        .request(app)
+        .post("/transactions")
+        .send(transaction1);
       const trxId1 = trxRes1.body.id;
-      const trxRes2 = await chai.request(app).post("/transactions").send(transaction2);
+      const trxRes2 = await chai
+        .request(app)
+        .post("/transactions")
+        .send(transaction2);
       const trxId2 = trxRes2.body.id;
 
       //Exercise
-      const expected = [{
-        user: user1,
-        balance: -500,
-        debit: 2500,
-        credit: 2000
-      },{
-        user: user2,
-        balance: 3000,
-        debit: 0,
-        credit: 3000
-      },{
-        user: user3,
-        balance: -2500,
-        debit: 2500,
-        credit: 0
-      }];
+      const expected = [
+        {
+          user: user1,
+          balance: -500,
+          debit: 3500,
+          credit: 3000,
+        },
+        {
+          user: user2,
+          balance: 4000,
+          debit: 1000,
+          credit: 5000,
+        },
+        {
+          user: user3,
+          balance: -3500,
+          debit: 3500,
+          credit: 0,
+        },
+      ];
       const res = await chai.request(app).get("/balance");
+      const actual = res.body.filter((b) =>
+        [user1, user2, user3].includes(b.user)
+      );
 
       //Assert
-      expect(res.body).to.deep.equal(expected);
+      expect(actual).to.deep.equal(expected);
       expect(res).to.have.status(200);
 
       //Teardown
-      await chai.request(app).delete("/transactions/"+trxId1);
-      await chai.request(app).delete("/transactions/"+trxId2);
-      await chai.request(app).delete("/users/"+user1);
-      await chai.request(app).delete("/users/"+user2);
-      await chai.request(app).delete("/users/"+user3);
+      await chai.request(app).delete("/transactions/" + trxId1);
+      await chai.request(app).delete("/transactions/" + trxId2);
+      await chai.request(app).delete("/users/" + user1);
+      await chai.request(app).delete("/users/" + user2);
+      await chai.request(app).delete("/users/" + user3);
     });
   });
 });

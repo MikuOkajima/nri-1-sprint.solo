@@ -3,19 +3,18 @@ import express from "express";
 import UserManager from "../service/user";
 import TrxManager from "../service/transaction";
 import TrxPayer from "entity/TrxPayer";
-import TrxPayee from "entity/TrxPayee";
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const trxs: TrxPayer[] = await TrxManager.findAllTrx();
+  const trxs: TrxPayer[] = await TrxManager.getAllTrx();
   const formattedTrxs = trxs.map((trx) => TrxManager.format(trx));
   res.send(trxs);
 });
 
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
-  const trx = await TrxManager.findTrxById(Number(id));
+  const trx = await TrxManager.getTrxById(Number(id));
   if (trx === undefined) {
     res.status(404).end();
   } else {
@@ -28,9 +27,9 @@ router.post("/", async (req, res) => {
   const newTrx = req.body;
   try {
     const payerName = newTrx.payer;
-    const payerUser: User = await UserManager.findUserByName(payerName);
+    const payerUser: User = await UserManager.getUserByName(payerName);
     const payeeNames = newTrx.payees;
-    const payeeUsers: User[] = await UserManager.findUsersByNames(payeeNames);
+    const payeeUsers: User[] = await UserManager.getUsersByNames(payeeNames);
     newTrx.payer = payerUser;
     newTrx.payee = payeeUsers;
     const trx = await TrxManager.saveTrx(newTrx);
@@ -42,7 +41,7 @@ router.post("/", async (req, res) => {
 });
 router.delete("/:id", async (req, res) => {
   const id = req.params.id;
-  const trxPayer: TrxPayer = await TrxManager.findTrxById(Number(id));
+  const trxPayer: TrxPayer = await TrxManager.getTrxById(Number(id));
   if (trxPayer === undefined) {
     res.status(404).end();
   } else {
@@ -57,7 +56,7 @@ router.delete("/:id", async (req, res) => {
 router.patch("/:id", async (req, res) => {
   const id = req.params.id;
   const updateTrxPayer = req.body;
-  const trxPayer: TrxPayer = await TrxManager.findTrxById(Number(id));
+  const trxPayer: TrxPayer = await TrxManager.getTrxById(Number(id));
   const updatedTrxPayer = {};
   if (trxPayer === undefined) {
     res.status(404).end();
@@ -68,7 +67,7 @@ router.patch("/:id", async (req, res) => {
         updateTrxPayer
       );
       await TrxManager.updateTrx(patch);
-      const updatedTrxPayer = await TrxManager.findTrxById(Number(id));
+      const updatedTrxPayer = await TrxManager.getTrxById(Number(id));
       const formattedTrxPayer = TrxManager.format(updatedTrxPayer);
       res.send(formattedTrxPayer);
     } catch (err) {

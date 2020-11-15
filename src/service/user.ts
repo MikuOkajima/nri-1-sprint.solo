@@ -6,7 +6,7 @@ class UserManager {
   /**
    * Get all users
    */
-  public static async findAllUser(): Promise<User[]> {
+  public static async getAllUser(): Promise<User[]> {
     let conn;
     let users = [];
     try {
@@ -24,7 +24,7 @@ class UserManager {
   /**
    * Get the user by name
    */
-  public static async findUserByName(name: string): Promise<User> {
+  public static async getUserByName(name: string): Promise<User> {
     let conn;
     let user: User;
     try {
@@ -44,7 +44,7 @@ class UserManager {
   /**
    * Get the users by names
    */
-  public static async findUsersByNames(names: string[]): Promise<User[]> {
+  public static async getUsersByNames(names: string[]): Promise<User[]> {
     let conn;
     const users: User[] = [];
     try {

@@ -9,7 +9,7 @@ class TrxManager {
   /**
    * Get all transactions
    */
-  public static async findAllTrx(): Promise<TrxPayer[]> {
+  public static async getAllTrx(): Promise<TrxPayer[]> {
     let conn;
     let allTrxs: TrxPayer[];
     try {
@@ -30,7 +30,7 @@ class TrxManager {
   /**
    * Get the trx by Id
    */
-  public static async findTrxById(id: number): Promise<TrxPayer> {
+  public static async getTrxById(id: number): Promise<TrxPayer> {
     let conn;
     let trx;
     try {
@@ -53,7 +53,7 @@ class TrxManager {
   /**
    * Get the trxPayee by trxPayer
    */
-  public static async findTrxPayeeByTrxPayer(trxPayer): Promise<TrxPayee[]> {
+  public static async getTrxPayeeByTrxPayer(trxPayer): Promise<TrxPayee[]> {
     let conn;
     let trxPayees = [];
     try {
@@ -169,14 +169,14 @@ class TrxManager {
     patch.id = trxPayer.id;
     for (const [key, value] of Object.entries(updateTrxPayer)) {
       if (key === "payer") {
-        patch[key] = await UserManager.findUserByName(String(value));
+        patch[key] = await UserManager.getUserByName(String(value));
         if (patch[key] === undefined) throw "payer is invalid";
       } else if (key === "payees") {
         if (typeof value !== "object") throw "payees is invalid";
         const trxPayees: Partial<TrxPayee>[] = [];
         for (const i in value) {
           const payee = value[i];
-          const payeeUser = await UserManager.findUserByName(payee);
+          const payeeUser = await UserManager.getUserByName(payee);
           if (payeeUser === undefined) throw "payees is invalid";
           trxPayees.push({
             trxPayer: trxPayer,

@@ -2,6 +2,7 @@ import express, { Application } from "express";
 import bodyParser from "body-parser";
 import userRouter from "./route/user";
 import transactionRouter from "./route/transaction";
+import balanceRouter from "./route/balance";
 
 class App {
   public static readonly DEFAULT_PORT: number = 3000;
@@ -30,6 +31,7 @@ class App {
 
     this.app.use("/users", userRouter);
     this.app.use("/transactions", transactionRouter);
+    this.app.use("/balance", balanceRouter);
 
     this.conn = this.app.listen(this.port, this.postStartHook);
   }
