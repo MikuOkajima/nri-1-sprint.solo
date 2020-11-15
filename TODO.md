@@ -4,11 +4,12 @@
  - [x] GET
  - [x] POST
  - [x] DELETE
-- [] Transaction
+- [x] Transaction
  - [x] Entity
  - [x] POST
  - [x] GET
- - [] DELETE
- - [] PATCH
+ - [x] GET by id
+ - [x] DELETE
+ - [x] PATCH
 - [] Calculation
  - [] GET
